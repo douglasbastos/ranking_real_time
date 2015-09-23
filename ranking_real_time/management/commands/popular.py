@@ -1,8 +1,9 @@
 #coding: utf-8
 
-import random
+import random, os
 
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth.models import User
 from ranking_real_time.models import Player
 
 import redis
@@ -13,7 +14,7 @@ class Command(BaseCommand):
     help = 'Popular tabela de usuários'
 
     def handle(self, *args, **options):
-        novos_players = self.inserir_usuarios()
+        novos_players = self.insert_user()
         novos = 0
         ja_existe = 0
         print 'Tentando inserir os {} usuários'.format(len(novos_players))
@@ -27,5 +28,8 @@ class Command(BaseCommand):
         print '{} novos usuários cadastrados com sucesso'.format(novos)
         print '{} não foi possivel inserir, poís já existem no banco de dados'.format(ja_existe)
 
-    def inserir_usuarios(self):
-        
+    def insert_user(self):
+        module_dir = os.path.dirname(__file__)
+        file_path = os.path.join(module_dir, 'lista_usuarios.txt')
+        itens = open(file_path, 'r')
+        return itens.readlines()
