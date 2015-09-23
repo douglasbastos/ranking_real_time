@@ -20,7 +20,8 @@ class Command(BaseCommand):
         print 'Tentando inserir os {} usuários'.format(len(novos_players))
         for player in novos_players:
             try:
-                Player.objects.create(username=player, pontos=1000)
+                user = User.objects.create(username=player)
+                Player.objects.create(username_id=user.pk, pontos=1000)
                 cache.zadd('ranking:username', 1000, player)
                 novos += 1
             except:
