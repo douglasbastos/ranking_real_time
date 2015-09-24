@@ -35,7 +35,7 @@ class Command(BaseCommand):
             
             tentativa += 1
             print '{}/{}'.format(tentativa, len(novos_players))
-        print '{} novos usuários cadastrados com sucesso'.format(novos)
+        print '\e[1;32m{} novos usuários cadastrados com sucesso'.format(novos)
 
     def insert_user(self):
         module_dir = os.path.dirname(__file__)
