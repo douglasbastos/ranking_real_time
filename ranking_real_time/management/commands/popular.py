@@ -16,21 +16,30 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         novos_players = self.insert_user()
         novos = 0
-        ja_existe = 0
+        tentativa = 0
+        usernames = map(lambda user: user.username, User.objects.all())
+        players_id = map(lambda player: player.pk, Player.objects.all())
         print 'Tentando inserir os {} usuários'.format(len(novos_players))
         for player in novos_players:
-            try:
+            # verifica está cadastrado na base de usuáriso
+            if player not in usernames:
                 user = User.objects.create(username=player)
+            else:
+                user = User.objects.get(username=player)
+
+            # verifica se está cadastrado na base de ranking
+            if user.pk not in players_id:
                 Player.objects.create(username_id=user.pk, pontos=1000)
                 cache.zadd('ranking:username', 1000, player)
                 novos += 1
-            except:
-                ja_existe += 1
+            
+            tentativa += 1
+            print '{}/{}'.format(tentativa, len(novos_players))
         print '{} novos usuários cadastrados com sucesso'.format(novos)
-        print '{} não foi possivel inserir, poís já existem no banco de dados'.format(ja_existe)
 
     def insert_user(self):
         module_dir = os.path.dirname(__file__)
         file_path = os.path.join(module_dir, 'lista_usuarios.txt')
-        itens = open(file_path, 'r')
-        return itens.readlines()
+        items_file = open(file_path, 'r')
+        items = items_file.readlines()
+        return map(lambda item: item.replace('\n', ''), items)
