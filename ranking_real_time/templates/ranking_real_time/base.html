@@ -1,9 +1,48 @@
-<table>
-{% for player in players %}
-    <tr>
-        <td></td>
-        <td>{{ player.username }}</td>
-        <td>{{ player.pontos }}</td>
-    </tr>
-{% endfor %}
-</table>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ranking de usuários</title>
+    <style type="text/css">
+        .conteudo{
+            width: 800px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: left;
+            width: 800px;
+        }
+        thead {
+            background-color: #ccffc1;
+        }
+        th, td {
+            padding: 5px;
+        }
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="conteudo">
+        <table>
+        <thead>
+            <tr>
+                <th class="name">Colocação</th>
+                <th class="subject">Usuário</th>
+                <th class="date">Pontos</th>
+            </tr>
+        </thead>
+        {% for player in players %}
+            <tr>
+                <td></td>
+                <td>{{ player.username }}</td>
+                <td>{{ player.pontos }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
+
+
