@@ -23,10 +23,6 @@ Django >= 1.8
 
 #### Comandos
 
-<b>Popular Banco</b>
-    
-    $ python manager.py popular
-
 <b>Reiniar ponturação</b> 
 Todos iniciaram com 1000 pontos
     
