@@ -1,8 +1,9 @@
 # coding: utf-8
 
 from django.shortcuts import render
-from .models import Player
 from django.conf import settings
+from django.views.decorators.cache import never_cache
+from .models import Player
 
 import redis
 cache = redis.StrictRedis(host=settings.REDIS_DB['host'],
@@ -10,6 +11,7 @@ cache = redis.StrictRedis(host=settings.REDIS_DB['host'],
                           db=settings.REDIS_DB['db'])
 
 
+@never_cache
 def mysql(request, **kwargs):
     qnt = kwargs['qnt']
     players = Player.objects.all().order_by('-pontos')[:qnt]
@@ -18,6 +20,7 @@ def mysql(request, **kwargs):
     return render(request, template, context)
 
 
+@never_cache
 def redis(request, **kwargs):
     qnt = int(kwargs['qnt']) - 1
     players = []
