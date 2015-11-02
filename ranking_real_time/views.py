@@ -1,11 +1,11 @@
-#coding: utf-8
+# coding: utf-8
 
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render
 from .models import Player
 
 import redis
 cache = redis.StrictRedis(host='127.0.0.1', port=6379, db=0)
+
 
 def mysql(request, **kwargs):
     qnt = kwargs['qnt']
@@ -14,9 +14,9 @@ def mysql(request, **kwargs):
     template = 'ranking_real_time/base.html'
     return render(request, template, context)
 
+
 def redis(request, **kwargs):
     qnt = int(kwargs['qnt']) - 1
-    player = []
     players = []
     players_redis = cache.zrevrange('ranking:username', 0, qnt, True)
     for pl in players_redis:

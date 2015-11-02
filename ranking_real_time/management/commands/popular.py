@@ -1,8 +1,7 @@
-#coding: utf-8
+# coding: utf-8
 
-import random, os
-
-from django.core.management.base import BaseCommand, CommandError
+import os
+from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from ranking_real_time.models import Player
 
@@ -32,7 +31,7 @@ class Command(BaseCommand):
                 Player.objects.create(username_id=user.pk, pontos=1000)
                 cache.zadd('ranking:username', 1000, player)
                 novos += 1
-            
+
             tentativa += 1
             print '{}/{}'.format(tentativa, len(novos_players))
         print '\e[1;32m{} novos usuários cadastrados com sucesso'.format(novos)
