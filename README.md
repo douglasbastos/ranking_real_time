@@ -40,10 +40,10 @@ De formar randômica pega um jogador e insere ou remove pontos dele
 Após você pode executar teste de carga entre as duas urls.
 
     Mysql
-    http://www.mysite.com/mysql/votacao/<qnt>
+    http://www.mysite.com/ranking/mysql/<qnt>
 .
 
     Redis
-    http://www.mysite.com/redis/votacao/<qnt>
+    http://www.mysite.com/ranking/redis/<qnt>
 
 Você pode usar o [siege](https://www.joedog.org/siege-manual/) para realizar esses testes
