@@ -29,13 +29,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         players = Player.objects.all()
-        start = now = int(time.time())
+        start = now = time.time()
         duration = int(options['time'])
         limit = start + duration
-        while True and now <= limit:
+        while now <= limit:
             player_sorteado = choice(players)
             player_sorteado.pontos = self.jogar_partida(player_sorteado.pontos)
             player_sorteado.save()
             cache.zadd('ranking:username', player_sorteado.pontos, player_sorteado.username)
-            now = int(time.time())
+            now = time.time()
             print 'Jogador {} está com {} pontos'.format(player_sorteado.username, player_sorteado.pontos)
