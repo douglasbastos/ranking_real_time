@@ -1,0 +1,2 @@
+recursive-include ranking_real_time/templates *
+recursive-include ranking_real_time/static *
